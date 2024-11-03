@@ -50,13 +50,12 @@ def main():
                "Happy Scanning with Ghost XSS!"
     )
 
-    # Defining command-line arguments
+    # Defining command-line arguments without --help/-h to avoid conflict
     parser.add_argument('-u', '--url', help="Target a single domain for scanning.")
     parser.add_argument('-l', '--list', help="Scan multiple domains from a specified file (one domain per line).")
     parser.add_argument('-a', '--active', action='store_true', help="Only scan active subdomains.")
     parser.add_argument('-o', '--output', help="Save scan results to a specified file.")
     parser.add_argument('--threads', type=int, default=10, help="Set number of threads for faster scanning (default: 10, max: 100).")
-    parser.add_argument('--help', '-h', action='help', help="Show this help message with command details and examples.")
 
     args = parser.parse_args()
 
