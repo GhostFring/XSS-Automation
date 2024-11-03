@@ -1,93 +1,72 @@
 import argparse
+import os
 import threading
 import requests
 
-# Define the logo
-logo = """
- ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░ ░▒▓███████▓▒░▒▓████████▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓███████▓▒░▒▓███████▓▒░ 
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░          ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░     ░▒▓█▓▒░        
-░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░          ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░     ░▒▓█▓▒░        
-░▒▓█▓▒▒▓███▓▒░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░   ░▒▓█▓▒░           ░▒▓██████▓▒░ ░▒▓██████▓▒░░▒▓██████▓▒░  
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░  ░▒▓█▓▒░          ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░     ░▒▓█▓▒░ 
-░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░  ░▒▓█▓▒░          ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░     ░▒▓█▓▒░ 
- ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░░▒▓███████▓▒░   ░▒▓█▓▒░          ░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░▒▓███████▓▒░  
+# Tool logo and information
+def show_logo():
+    print("""
+ ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░ ░▒▓███████▓▒░▒▓████████▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓███████▓▒░▒▓███████▓▒░
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░          ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░     ░▒▓█▓▒░
+░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░          ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░     ░▒▓█▓▒░
+░▒▓█▓▒▒▓███▓▒░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░   ░▒▓█▓▒░           ░▒▓██████▓▒░ ░▒▓██████▓▒░░▒▓██████▓▒░
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░  ░▒▓█▓▒░          ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░     ░▒▓█▓▒░
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░  ░▒▓█▓▒░          ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░     ░▒▓█▓▒░
+ ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░░▒▓███████▓▒░   ░▒▓█▓▒░          ░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░▒▓███████▓▒░
 
 Ghost Fring - XSS Attack Tool, Version 1.0 - Unleash the power of Cross-Site Scripting!
-"""
+""")
+    print("Type Your command here:")
 
-def display_logo():
-    print(logo)
-    print("Type Your command here:\n")
+# XSS attack function (placeholder for actual scanning logic)
+def xss_attack(domain):
+    print(f"Scanning {domain} for XSS vulnerabilities...")
+    # Insert XSS attack logic here
 
-def scan_single_domain(domain, active_only, output_file, threads):
-    # Placeholder for scanning logic on a single domain
-    print(f"Scanning single domain: {domain}")
-    if active_only:
-        print("Filtering for active subdomains only.")
-    # Insert XSS scanning logic here
-    if output_file:
-        with open(output_file, 'a') as f:
-            f.write(f"Results for {domain}\n")  # Add results to output file
-
-def scan_multiple_domains(file_path, active_only, output_file, threads):
-    print(f"Scanning multiple domains from file: {file_path}")
-    try:
-        with open(file_path, 'r') as file:
-            domains = file.read().splitlines()
-            threads_list = []
-            for domain in domains:
-                thread = threading.Thread(target=scan_single_domain, args=(domain, active_only, output_file, threads))
-                thread.start()
-                threads_list.append(thread)
-            for thread in threads_list:
-                thread.join()
-    except FileNotFoundError:
-        print(f"Error: File {file_path} not found.")
-
+# Main function
 def main():
-    display_logo()  # Show the logo and prompt before any commands are processed
-    
+    show_logo()
     parser = argparse.ArgumentParser(
-        description="Ghost XSS - Advanced XSS & Vulnerability Attack Tool\n"
-                    "Version 1.0 - Unleash the power of Cross-Site Scripting!",
-        formatter_class=argparse.RawTextHelpFormatter,
-        epilog="Examples:\n"
-               "  python ghost_xss.py -u example.com\n"
-               "      Scan a single domain (example.com) for vulnerabilities.\n\n"
-               "  python ghost_xss.py -l domains.txt\n"
-               "      Scan all domains listed in \"domains.txt\".\n\n"
-               "  python ghost_xss.py -u example.com -a\n"
-               "      Scan only active subdomains of example.com.\n\n"
-               "  python ghost_xss.py -l domains.txt -o results.txt\n"
-               "      Scan domains in \"domains.txt\" and save results to \"results.txt\".\n\n"
-               "  python ghost_xss.py -u example.com --threads 50\n"
-               "      Scan example.com with 50 threads for faster processing.\n\n"
-               "Notes:\n"
-               "  - Use `-u` or `-l` to specify your target(s).\n"
-               "  - `-a` filters for active subdomains only.\n"
-               "  - Adjust scan speed with `--threads`, useful for larger targets.\n\n"
-               "Happy Scanning with Ghost XSS!"
+        description="Ghost XSS - Advanced XSS & Vulnerability Attack Tool",
+        add_help=False,
+        formatter_class=argparse.RawTextHelpFormatter
     )
 
-    # Defining command-line arguments
+    # Define arguments
     parser.add_argument('-u', '--url', help="Target a single domain for scanning.")
     parser.add_argument('-l', '--list', help="Scan multiple domains from a specified file (one domain per line).")
     parser.add_argument('-a', '--active', action='store_true', help="Only scan active subdomains.")
     parser.add_argument('-o', '--output', help="Save scan results to a specified file.")
     parser.add_argument('--threads', type=int, default=10, help="Set number of threads for faster scanning (default: 10, max: 100).")
+    parser.add_argument('-h', '--help', action='help', help="Show this help message with command details and examples.")
 
-    args = parser.parse_args()
+    # Parse arguments
+    args, unknown = parser.parse_known_args()
 
-    # Determine number of threads (limit to 100 max for safety)
-    threads = min(args.threads, 100)
-
-    if args.url:
-        scan_single_domain(args.url, args.active, args.output, threads)
-    elif args.list:
-        scan_multiple_domains(args.list, args.active, args.output, threads)
-    else:
-        print("Error: Please specify a target domain with -u or a list of domains with -l.")
+    # Check if any target domain or list is provided
+    if not any([args.url, args.list]):
         parser.print_help()
+        print("\nError: Please specify a target domain with -u or a list of domains with -l.")
+        return
+
+    # Process single domain scan
+    if args.url:
+        xss_attack(args.url)
+
+    # Process multiple domain scan from list file
+    elif args.list:
+        if os.path.exists(args.list):
+            with open(args.list, 'r') as file:
+                domains = file.read().splitlines()
+                for domain in domains:
+                    xss_attack(domain)
+        else:
+            print(f"Error: File '{args.list}' not found.")
+            return
+
+    # Output results if specified
+    if args.output:
+        print(f"Results will be saved to {args.output}")
 
 if __name__ == "__main__":
     main()
