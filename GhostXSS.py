@@ -2,6 +2,23 @@ import argparse
 import threading
 import requests
 
+# Define the logo
+logo = """
+ ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░ ░▒▓███████▓▒░▒▓████████▓▒░      ░▒▓█▓▒░░▒▓█▓▒░░▒▓███████▓▒░▒▓███████▓▒░ 
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░          ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░     ░▒▓█▓▒░        
+░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░          ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░     ░▒▓█▓▒░        
+░▒▓█▓▒▒▓███▓▒░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░   ░▒▓█▓▒░           ░▒▓██████▓▒░ ░▒▓██████▓▒░░▒▓██████▓▒░  
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░  ░▒▓█▓▒░          ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░     ░▒▓█▓▒░ 
+░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░  ░▒▓█▓▒░          ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░     ░▒▓█▓▒░ 
+ ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░░▒▓███████▓▒░   ░▒▓█▓▒░          ░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░▒▓███████▓▒░  
+
+Ghost Fring - XSS Attack Tool, Version 1.0 - Unleash the power of Cross-Site Scripting!
+"""
+
+def display_logo():
+    print(logo)
+    print("Type Your command here:\n")
+
 def scan_single_domain(domain, active_only, output_file, threads):
     # Placeholder for scanning logic on a single domain
     print(f"Scanning single domain: {domain}")
@@ -28,6 +45,8 @@ def scan_multiple_domains(file_path, active_only, output_file, threads):
         print(f"Error: File {file_path} not found.")
 
 def main():
+    display_logo()  # Show the logo and prompt before any commands are processed
+    
     parser = argparse.ArgumentParser(
         description="Ghost XSS - Advanced XSS & Vulnerability Attack Tool\n"
                     "Version 1.0 - Unleash the power of Cross-Site Scripting!",
@@ -50,7 +69,7 @@ def main():
                "Happy Scanning with Ghost XSS!"
     )
 
-    # Defining command-line arguments without --help/-h to avoid conflict
+    # Defining command-line arguments
     parser.add_argument('-u', '--url', help="Target a single domain for scanning.")
     parser.add_argument('-l', '--list', help="Scan multiple domains from a specified file (one domain per line).")
     parser.add_argument('-a', '--active', action='store_true', help="Only scan active subdomains.")
